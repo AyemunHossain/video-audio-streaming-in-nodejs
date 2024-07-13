@@ -1,0 +1,33 @@
+{
+  "name": "stream-buffers-in-nodejs",
+  "version": "1.0.0",
+  "description": "Public This project focuses on implementing and demonstrating how stream and buffer works along together in nodejs.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AyemunHossain/stream-buffers-in-nodejs.git"
+  },
+  "keywords": [
+    "nodejs",
+    "nodejs-stream",
+    "nodejs-buffers",
+    "stream-buffers"
+  ],
+  "author": "github.com/ayemunhossain",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AyemunHossain/stream-buffers-in-nodejs/issues"
+  },
+  "homepage": "https://github.com/AyemunHossain/stream-buffers-in-nodejs#readme",
+  "dependencies": {
+    "cluster": "^0.7.7",
+    "express": "^4.19.2",
+    "https": "^1.0.0",
+    "node-waf": "^10.1.1",
+    "nodemon": "^3.1.4"
+  }
+}
