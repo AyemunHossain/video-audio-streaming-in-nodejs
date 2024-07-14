@@ -26,9 +26,28 @@ const renderVideoForStream = (req, res, next) => {
             }
 
             const positions = range.replace(/bytes=/, "").split("-");
+            if(positions.length !== 2) {
+                res.writeHead(416, { "Content-Type": "text/plain" });
+                res.end("Range Not Satisfiable");
+                return;
+            }
+
             const start = parseInt(positions[0], 10);
+
+            if(start < 0 || start >= stats.size) {
+                res.writeHead(416, { "Content-Type": "text/plain" });
+                res.end("Range Not Satisfiable");
+                return;
+            }
+
             const total = stats.size;
             const end = positions[1] ? parseInt(positions[1], 10) : total - 1;
+            if(end < 0 || end >= stats.size) {
+                res.writeHead(416, { "Content-Type": "text/plain" });
+                res.end("Range Not Satisfiable");
+                return;
+            }
+
             const chunksize = end - start + 1;
 
             res.writeHead(206, {
@@ -71,9 +90,30 @@ const renderAudioForStream = (req, res, next) => {
             }
 
             const positions = range.replace(/bytes=/, "").split("-");
+
+            if(positions.length !== 2) {
+                res.writeHead(416, { "Content-Type": "text/plain" });
+                res.end("Range Not Satisfiable");
+                return;
+            }
+        
             const start = parseInt(positions[0], 10);
+
+            if(start < 0 || start >= stats.size) {
+                res.writeHead(416, { "Content-Type": "text/plain" });
+                res.end("Range Not Satisfiable");
+                return;
+            }
+
             const total = stats.size;
             const end = positions[1] ? parseInt(positions[1], 10) : total - 1;
+            
+            if(end < 0 || end >= stats.size) {
+                res.writeHead(416, { "Content-Type": "text/plain" });
+                res.end("Range Not Satisfiable");
+                return;
+            }
+
             const chunksize = end - start + 1;
 
             res.writeHead(206, {
@@ -103,6 +143,9 @@ const renderAudioForStream = (req, res, next) => {
 app.use("/audio", renderAudioForStream);
 app.use('/video', renderVideoForStream);
 
+app.use("/", (req, res) => {
+    res.status(200).send("Server is running");
+});
 
 
 const server = http.createServer(app);
