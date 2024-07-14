@@ -1,7 +1,7 @@
 "use strict";
 const fs = require("fs");
 const path = require("path");
-const https = require("https");
+const http = require("http");
 const express = require("express");
 const app = express();
 
@@ -104,16 +104,9 @@ app.use("/audio", renderAudioForStream);
 app.use('/video', renderVideoForStream);
 
 
-const credentials = {
-    key: fs.readFileSync("ssl/private.key"),
-    cert: fs.readFileSync("ssl/bundle.crt"),
-    dhparam: fs.readFileSync("ssl/dh-strong.pem"),
-    requestCert: true,
-    rejectUnauthorized: false,
-};
 
-const server = https.createServer(credentials, app);
+const server = http.createServer(app);
 
 server.listen(3000, () => {
-    console.log("Server running at https://localhost:3000/");
+    console.log("Server running at http://localhost:3000/");
 });
